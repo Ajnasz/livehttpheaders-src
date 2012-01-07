@@ -434,6 +434,7 @@ HeaderInfoLive.prototype =
   },
   // Remove a LiveHTTPHeaders's observer
   removeObserver: function(obj) {
+    var observer;
     for (observer in this.observers) {
       if (this.observers[observer] == obj) {
         delete this.observers[observer];
@@ -638,6 +639,7 @@ HeaderInfoLive.prototype =
       this.addRow(name + "\r\n", this.URL);
       this.addRow("\r\n", this.REQSPACE);
       var flag = false;
+      var i;
       for (i in request) {
           this.addRow((flag? i+": " : "") + request[i] + "\r\n", this.REQUEST);
           flag=true;
@@ -728,6 +730,7 @@ HeaderInfoLive.prototype =
       //oHttp.loadFlags = oHttp.VALIDATE_ALWAYS;
     }
     var uri = oHttp.URI.asciiSpec;
+    var observer;
     for (observer in this.observers) {
       if ('observeGRequest' in this.observers[observer]) {
         this.observers[observer].observeGRequest(uri, oHttp.requestMethod)
@@ -788,6 +791,7 @@ HeaderInfoLive.prototype =
 
     // Call response observers
     var isRedirect = (name != origname)
+    var observer;
     for (observer in this.observers) {
       //dumpall("Observer", this.observers[observer], 1);
       this.observers[observer].observeResponse(name, request, response, rawData, isRedirect)
